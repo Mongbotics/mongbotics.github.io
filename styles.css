@@ -1,0 +1,1278 @@
+:root {
+  --ink: #08111d;
+  --blue: #1769ff;
+  --ice: #eaf3ff;
+  --line: #cad5e2;
+  --muted: #586575;
+  --white: #f8fbff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.nav {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4vw;
+  background: rgba(248,251,255,.94);
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgba(255,255,255,.25);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 26px;
+  background: var(--blue);
+  color: white;
+  clip-path: polygon(0 0,50% 38%,100% 0,100% 100%,72% 100%,72% 45%,50% 61%,28% 45%,28% 100%,0 100%);
+  font-size: 0;
+}
+
+.links {
+  display: flex;
+  gap: 32px;
+  font-size: 13px;
+}
+
+.links a,
+.navCta {
+  transition: opacity .2s;
+}
+
+.links a:hover,
+.navCta:hover {
+  opacity: .55;
+}
+
+.navCta {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Product dropdown.
+
+   Opens on hover and on :focus-within, so it works with a mouse and with the
+   keyboard without any script. The script only adds click, Escape and
+   click-outside. */
+
+.menu {
+  position: relative;
+}
+
+.menuBtn {
+  font: inherit;
+  font-size: 13px;
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: opacity .2s;
+}
+
+.menuBtn:hover {
+  opacity: .55;
+}
+
+.menuBtn.active {
+  opacity: 1;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 3px;
+}
+
+.caret {
+  font-size: 9px;
+  transition: transform .2s;
+}
+
+.menu:hover .caret,
+.menu.open .caret {
+  transform: rotate(180deg);
+}
+
+/* .menuList is an invisible bridge that spans the gap between the button and
+   the panel, so the pointer never crosses dead space and the menu never
+   flickers shut on the way down. .menuInner is the part you actually see. */
+.menuList {
+  position: absolute;
+  top: 100%;
+  left: -22px;
+  padding-top: 27px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .18s, transform .18s, visibility .18s;
+}
+
+.menu:hover .menuList,
+.menu:focus-within .menuList,
+.menu.open .menuList {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.menuInner {
+  min-width: 190px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 7px 0;
+  display: grid;
+}
+
+.links .menuInner a {
+  padding: 11px 22px;
+  font-size: 13px;
+}
+
+.links .menuInner a:hover {
+  opacity: 1;
+  background: #eef4fb;
+}
+
+/* the underline treatment belongs on the top level, not inside the panel */
+.links .menuInner a.active {
+  border-bottom: 0;
+  padding-bottom: 11px;
+  color: var(--blue);
+}
+
+.hero {
+  height: 100vh;
+  min-height: 720px;
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+}
+
+.heroImage {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,rgba(3,12,25,.9) 0%,rgba(3,12,25,.42) 47%,rgba(3,12,25,.1) 75%),linear-gradient(0deg,rgba(2,9,18,.55),transparent 45%);
+}
+
+.heroCopy {
+  position: absolute;
+  left: 7vw;
+  top: 50%;
+  transform: translateY(-43%);
+  max-width: 850px;
+}
+
+.eyebrow,
+.sectionTag {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow span {
+  width: 26px;
+  height: 2px;
+  background: #5ea2ff;
+}
+
+.hero h1 {
+  font-size: clamp(46px,6.6vw,104px);
+  line-height: .88;
+  letter-spacing: -.06em;
+  margin: 26px 0 26px;
+  font-weight: 600;
+}
+
+.hero h1 em {
+  color: #71aaff;
+  font-style: normal;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  margin-top: 46px;
+}
+
+.primary {
+  background: var(--blue);
+  padding: 17px 20px;
+  display: inline-flex;
+  gap: 34px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.textLink {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  gap: 14px;
+}
+
+.heroMeta {
+  position: absolute;
+  right: 5vw;
+  bottom: 45px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.heroMeta>span {
+  font-size: 11px;
+  color: #72aaff;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 6px;
+}
+
+.heroMeta p {
+  margin: 0;
+  font: 11px/1.7 monospace;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #ccd7e4;
+}
+
+.manifesto {
+  display: grid;
+  grid-template-columns: .5fr 2.4fr 1.15fr;
+  gap: 4vw;
+  padding: 140px 7vw;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+}
+
+.sectionTag {
+  color: var(--blue);
+  margin: 6px 0;
+}
+
+.manifesto h2,
+.sectionHead h2,
+.control h2,
+.market h2,
+.network h2,
+.cta h2 {
+  font-size: clamp(44px,6vw,92px);
+  line-height: .97;
+  letter-spacing: -.055em;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* narrower column than the full-bleed headings, so a step down in size */
+.manifesto h2 {
+  font-size: clamp(36px,4.4vw,66px);
+}
+
+.manifesto h2 span {
+  color: var(--blue);
+}
+
+.manifestoBody {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+.ecosystem {
+  padding: 120px 7vw;
+  background: #eef4fb;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 75px;
+}
+
+.sectionHead h2 {
+  text-align: right;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  border-top: 1px solid #aebdcd;
+}
+
+.product {
+  min-height: 300px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 20px;
+  border-bottom: 1px solid #aebdcd;
+  position: relative;
+}
+
+.product:nth-child(odd) {
+  border-right: 1px solid #aebdcd;
+}
+
+.product .number {
+  font: 12px monospace;
+  color: #677586;
+}
+
+.product h3 {
+  font-size: 37px;
+  letter-spacing: -.04em;
+  margin: 50px 0 15px;
+}
+
+.product p {
+  max-width: 390px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.product>a {
+  background: var(--blue);
+  color: white;
+  align-self: end;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+}
+
+.chip {
+  font: 10px monospace;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  border: 1px solid #aebdcd;
+  border-radius: 30px;
+  padding: 9px 12px;
+  align-self: end;
+}
+
+.featured {
+  background: var(--ink);
+  color: white;
+}
+
+.featured p {
+  color: #afbdcf;
+}
+
+/* MongBot specifications. The numbers hold still in a sticky rail while the
+   photographs scroll past, which is the reverse of the old layout: there the
+   pictures were fixed and the specs rode along. */
+
+.specBuild {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5vw;
+  padding: 130px 7vw;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+
+.specRail {
+  position: sticky;
+  top: 96px;
+}
+
+.specRail h2 {
+  font-size: clamp(34px,3.8vw,56px);
+  line-height: .97;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 18px;
+}
+
+/* :not(.sectionTag) or this wins over the blue mono label, which is also a p */
+.specRail > p:not(.sectionTag) {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 40px;
+  max-width: 400px;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+}
+
+.specRow:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.specRow span {
+  font: 10px monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.specRow strong {
+  font-size: 22px;
+  letter-spacing: -.04em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.specDim {
+  margin: 22px 0 0;
+  font: 11px monospace;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+.specShots {
+  display: grid;
+  gap: 24px;
+}
+
+.specShots figure {
+  margin: 0;
+}
+
+.specShots img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.specShots figcaption {
+  margin-top: 14px;
+  font: 10px monospace;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Sensor suite. Dark monospace panel, deliberately the same treatment as the
+   Soul.md record on the Technology page. */
+
+.sense {
+  background: var(--ink);
+  color: #fff;
+  padding: 120px 7vw;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 6vw;
+}
+
+.sense h2 {
+  font-size: clamp(36px,4.4vw,62px);
+  line-height: .96;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 0;
+}
+
+.senseList {
+  border-top: 1px solid #24344b;
+}
+
+.senseList div {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid #24344b;
+  font: 15px monospace;
+  color: #dbe6f3;
+}
+
+.senseList i {
+  color: #46617f;
+  font-style: normal;
+}
+
+/* spans both columns. Contained and never cropped: it carries callout text at
+   its own edges. Its black ground already matches the panel. */
+.senseDiagram {
+  grid-column: 1 / -1;
+  margin: 70px auto 0;
+  max-width: 880px;
+  width: 100%;
+  height: auto;
+}
+
+.control {
+  background: var(--ink);
+  color: #fff;
+  padding: 120px 7vw;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 7vw;
+  align-items: center;
+}
+
+.controlCopy>p:not(.sectionTag) {
+  color: #9fafc2;
+  line-height: 1.7;
+  margin: 30px 0 35px;
+  max-width: 560px;
+}
+
+.control img {
+  border: 1px solid #344254;
+}
+
+.control ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.control li {
+  padding: 17px 0;
+  border-top: 1px solid #2c3949;
+  font-size: 14px;
+}
+
+.control li span {
+  color: #548dff;
+  font: 11px monospace;
+  margin-right: 25px;
+}
+
+/* Technology page: the Soul.md record, rendered as the file it is.
+   Dark panel so the monospace record reads as on-chain data, not marketing. */
+
+.soulFile {
+  background: var(--ink);
+  color: #fff;
+  padding: 130px 7vw;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 6vw;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+}
+
+.soulFile h2 {
+  font-size: clamp(40px,5vw,74px);
+  line-height: .95;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 26px;
+}
+
+.soulFile .lead {
+  font-size: 18px;
+  line-height: 1.65;
+  color: #9fb0c4;
+  margin: 0;
+  max-width: 460px;
+}
+
+.soulCard {
+  border: 1px solid #24344b;
+  background: #0c1728;
+}
+
+.soulCard .bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid #24344b;
+  font: 11px monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7f93ab;
+}
+
+.soulCard .bar b {
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: .14em;
+}
+
+.soulRow {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 18px;
+  padding: 17px 22px;
+  border-bottom: 1px solid #1b293c;
+  font: 14px/1.4 monospace;
+}
+
+/* the note is the last child, so the last row needs last-of-type */
+.soulRow:last-of-type {
+  border-bottom: 0;
+}
+
+.soulRow i {
+  color: #46617f;
+  font-style: normal;
+}
+
+.soulRow span {
+  color: #dbe6f3;
+}
+
+.soulRow span em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+.soulNote {
+  padding: 20px 22px;
+  font: 12px/1.6 monospace;
+  color: #6f8299;
+  border-top: 1px solid #24344b;
+}
+
+/* The RWA ownership rule, as three hairline steps */
+
+.ownRule {
+  padding: 130px 7vw;
+  border-bottom: 1px solid var(--line);
+}
+
+.ownRule h2 {
+  font-size: clamp(38px,4.6vw,66px);
+  line-height: .97;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 70px;
+  max-width: 900px;
+}
+
+.ownStep {
+  display: grid;
+  grid-template-columns: 90px 1fr 1.3fr;
+  gap: 4vw;
+  padding: 38px 0;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+}
+
+.ownStep b {
+  font: 11px monospace;
+  letter-spacing: .16em;
+  color: var(--blue);
+  font-weight: 400;
+}
+
+.ownStep h3 {
+  font-size: 27px;
+  letter-spacing: -.04em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ownStep p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+.market {
+  padding: 130px 7vw;
+  background: var(--blue);
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 8vw;
+}
+
+.market .sectionTag {
+  color: #b8d3ff;
+}
+
+.marketCopy>p {
+  font-size: 21px;
+  line-height: 1.6;
+  max-width: 650px;
+  margin: 0;
+}
+
+.marketLine {
+  display: flex;
+  align-items: center;
+  margin: 70px 0 55px;
+  font: 11px monospace;
+  letter-spacing: .1em;
+}
+
+.marketLine i {
+  height: 1px;
+  background: #9fc2ff;
+  flex: 1;
+  margin: 0 12px;
+}
+
+.plain {
+  font-weight: 700;
+}
+
+/* Text sits above the image rather than on top of it, so the map is fully
+   visible and legible. It is the picture of exactly what the tag line lists. */
+.network {
+  padding: 130px 0 0;
+}
+
+.networkCopy {
+  padding: 0 7vw 72px;
+}
+
+/* one unbroken row. The size shrinks with the viewport so the full list keeps
+   fitting; below the breakpoint it is allowed to wrap rather than overflow. */
+.networkTags {
+  margin: 34px 0 0;
+  font-size: clamp(12px, 1.3vw, 18px);
+  line-height: 1.9;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.network img,
+.network video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cta {
+  padding: 150px 7vw 120px;
+  background: #e8f1fb;
+  position: relative;
+}
+
+.cta h2 {
+  font-size: clamp(72px,12vw,180px);
+}
+
+.cta>a {
+  position: absolute;
+  right: 8vw;
+  bottom: 140px;
+  background: var(--blue);
+  color: white;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 30px;
+}
+
+.cta>a span {
+  position: absolute;
+  right: 47px;
+  top: 47px;
+}
+
+footer {
+  background: var(--ink);
+  color: white;
+  padding: 70px 7vw 35px;
+  display: grid;
+  grid-template-columns: 1fr 1fr .7fr;
+  gap: 50px;
+  align-items: start;
+}
+
+footer p {
+  margin: 0;
+  color: #98a9bc;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  font-size: 13px;
+}
+
+footer>span {
+  grid-column: 1/-1;
+  border-top: 1px solid #2b3747;
+  padding-top: 25px;
+  color: #718095;
+  font: 10px monospace;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+@media(max-width:800px) {
+  .nav {
+    height: 64px;
+  }
+  .links {
+    display: none;
+  }
+  .navCta {
+    font-size: 0;
+  }
+  .navCta span {
+    font-size: 15px;
+  }
+  .hero {
+    min-height: 700px;
+  }
+  .heroCopy {
+    left: 6vw;
+    right: 6vw;
+  }
+  .hero h1 {
+    font-size: 46px;
+  }
+  .heroMeta {
+    display: none;
+  }
+  .manifesto,
+  .market {
+    grid-template-columns: 1fr;
+    padding: 90px 6vw;
+  }
+  .manifesto {
+    gap: 28px;
+  }
+  .manifestoBody {
+    margin-top: 0;
+  }
+  .sectionHead {
+    display: block;
+  }
+  .sectionHead h2 {
+    text-align: left;
+    margin-top: 30px;
+  }
+  .ecosystem {
+    padding: 90px 6vw;
+  }
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+  .product:nth-child(odd) {
+    border-right: 0;
+  }
+  .specBuild,
+  .sense {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 80px 6vw;
+  }
+  .specRail {
+    position: static;
+  }
+  .control {
+    grid-template-columns: 1fr;
+    padding: 90px 6vw;
+  }
+  .control img {
+    margin-top: 20px;
+  }
+  .soulFile,
+  .ownStep {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .soulFile,
+  .ownRule {
+    padding: 80px 6vw;
+  }
+  .network {
+    padding: 80px 0 0;
+  }
+  .networkCopy {
+    padding: 0 6vw 44px;
+  }
+  .networkTags {
+    font-size: 15px;
+    white-space: normal;
+  }
+  .cta {
+    padding: 100px 6vw 260px;
+  }
+  .cta>a {
+    bottom: 55px;
+    right: 6vw;
+    width: 165px;
+    height: 165px;
+  }
+  footer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .heroImage {
+    object-position: 66% center;
+  }
+  .actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+/* ==========================================================================
+   Multi-page additions
+   Same visual language as above: sharp corners, hairlines, tight headings.
+   ========================================================================== */
+
+.links a.active {
+  opacity: 1;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 3px;
+}
+
+/* Compact hero for interior pages */
+
+.pageHero {
+  height: 66vh;
+  min-height: 540px;
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+}
+
+.pageHero img {
+  height: 100%;
+  object-fit: cover;
+  /* favour the upper part of the frame so the network nodes above the robot
+     survive the crop instead of being cut off by the nav */
+  object-position: center 38%;
+}
+
+/* the About robot stands low in its frame, so the default crop takes its
+   wheels off. This keeps the bottom of the picture instead. */
+.pageHero.cropLow img {
+  object-position: center 70%;
+}
+
+.pageHero .heroShade {
+  background: linear-gradient(90deg,rgba(3,12,25,.92) 0%,rgba(3,12,25,.55) 55%,rgba(3,12,25,.2) 100%),linear-gradient(0deg,rgba(2,9,18,.6),transparent 55%);
+}
+
+.pageHeroCopy {
+  position: absolute;
+  left: 7vw;
+  right: 7vw;
+  bottom: 64px;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 1050px;
+}
+
+.pageHero h1 {
+  font-size: clamp(38px,5.2vw,80px);
+  line-height: .95;
+  letter-spacing: -.05em;
+  margin: 22px 0 0;
+  font-weight: 600;
+}
+
+.pageHero .eyebrow {
+  color: #cfdcec;
+}
+
+.pageIntro {
+  padding: 110px 7vw;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5vw;
+  border-bottom: 1px solid var(--line);
+}
+
+.pageIntro p:not(.sectionTag) {
+  font-size: 21px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  max-width: 780px;
+}
+
+/* Why now, from deck slide 13 */
+
+.why {
+  background: var(--ink);
+  color: #fff;
+  padding: 130px 7vw;
+  border-bottom: 1px solid var(--line);
+}
+
+/* the house blue is too dark to read on --ink, so the label lifts to the
+   lighter blue the hero eyebrow already uses */
+.why .sectionTag {
+  color: #5ea2ff;
+}
+
+.why h2 {
+  font-size: clamp(40px,5vw,74px);
+  line-height: .96;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 70px;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0 4vw;
+}
+
+.whyGrid div {
+  border-top: 1px solid #24344b;
+  padding: 30px 0 0;
+}
+
+.whyGrid h4 {
+  font-size: 20px;
+  letter-spacing: -.035em;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.whyGrid p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #9fb0c4;
+  margin: 0;
+}
+
+@media(max-width:800px) {
+  .why {
+    padding: 74px 6vw;
+  }
+  .whyGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* About Us closes on the contact details, so the page ends somewhere useful
+   rather than trailing off after the thesis. */
+
+.reach {
+  padding: 130px 7vw;
+  background: #eef4fb;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5vw;
+  border-bottom: 1px solid var(--line);
+}
+
+.reach h2 {
+  font-size: clamp(40px,5vw,74px);
+  line-height: .96;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 0;
+}
+
+.reach dl {
+  margin: 0;
+  align-self: end;
+}
+
+.reach dt {
+  font: 10px monospace;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: var(--blue);
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.reach dt + dd {
+  margin: 12px 0 34px;
+  font-size: clamp(21px,2.2vw,30px);
+  letter-spacing: -.03em;
+}
+
+.reach dd:last-child {
+  margin-bottom: 0;
+}
+
+.reach a:hover {
+  color: var(--blue);
+}
+
+@media(max-width:800px) {
+  .reach {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 74px 6vw;
+  }
+}
+
+/* Cross-page navigation at the foot of every interior page */
+
+.pageNext {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  border-top: 1px solid var(--line);
+}
+
+.pageNext a {
+  padding: 60px 7vw;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background-color .2s;
+}
+
+.pageNext a:hover { background: #eef4fb; }
+.pageNext a:first-child { border-right: 1px solid var(--line); }
+
+.pageNext span {
+  font: 10px monospace;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: var(--blue);
+}
+
+.pageNext strong {
+  font-size: 34px;
+  letter-spacing: -.04em;
+  font-weight: 600;
+}
+
+@media(max-width:800px) {
+  .pageHero { height: auto; min-height: 380px; }
+  .pageHeroCopy { bottom: 44px; left: 6vw; right: 6vw; }
+  .pageIntro { grid-template-columns: 1fr; padding: 70px 6vw; }
+  .pageIntro p:not(.sectionTag) { font-size: 18px; }
+  .pageNext { grid-template-columns: 1fr; }
+  .pageNext a { padding: 40px 6vw; }
+  .pageNext a:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
+  .pageNext strong { font-size: 26px; }
+}
+
+.pageHero h1 em {
+  color: #71aaff;
+  font-style: normal;
+}
+
+/* Video hero. The footage is bright daylight and the headline sits on top of
+   it, so this hero gets a heavier scrim than the image heroes do. */
+
+.heroVideo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.videoHero .heroShade {
+  background:
+    linear-gradient(90deg, rgba(3,12,25,.94) 0%, rgba(3,12,25,.78) 45%, rgba(3,12,25,.5) 100%),
+    linear-gradient(0deg, rgba(2,9,18,.8), rgba(2,9,18,.25) 60%);
+}
+
+
+/* Home page thesis block: words left, picture right, both half width.
+   Its own section rather than .manifesto, which the other pages still use. */
+.vision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5vw;
+  align-items: center;
+  padding: 120px 7vw;
+  border-bottom: 1px solid var(--line);
+}
+
+.vision h2 {
+  font-size: clamp(32px,3.5vw,50px);
+  line-height: 1.06;
+  letter-spacing: -.045em;
+  margin: 22px 0 0;
+  font-weight: 600;
+}
+
+.vision h2 span {
+  color: var(--blue);
+}
+
+.visionBody {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 26px 0 0;
+  max-width: 48ch;
+}
+
+.vision img {
+  width: 100%;
+  height: auto;
+}
+
+@media(max-width:800px) {
+  .vision {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 80px 6vw;
+  }
+}

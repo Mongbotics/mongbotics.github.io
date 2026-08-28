@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MongMarket | Mongbotics</title>
+  <meta name="description" content="MongMarket is a peer-to-peer network where anyone can request a robot and owners can put theirs to work.">
+  <meta property="og:title" content="MongMarket | Mongbotics">
+  <meta property="og:description" content="MongMarket is a peer-to-peer network where anyone can request a robot and owners can put theirs to work.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=56658c61">
+</head>
+<body>
+<main>
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+    <div class="links">
+        <a href="index.html">Home</a>
+        <div class="menu">
+          <button type="button" class="menuBtn active" aria-expanded="false" aria-controls="productMenu">
+            Product <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="menuList" id="productMenu">
+            <div class="menuInner">
+          <a href="technology.html">Overview</a>
+          <a href="mongbot.html">MongBot</a>
+          <a href="mongcore.html">MongCore</a>
+          <a href="mongmarket.html" class="active">MongMarket</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html">About Us</a>
+    </div>
+    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+  </nav>
+
+  <section class="pageHero">
+    <img src="images/identity.jpg" alt="Two MongBot robots passing each other on a tree-lined street">
+    <div class="heroShade"></div>
+    <div class="pageHeroCopy">
+      <p class="eyebrow"><span></span> MongMarket</p>
+      <h1>Put robots<br>to <em>work.</em></h1>
+    </div>
+  </section>
+
+  <section class="pageIntro">
+    <p class="sectionTag">The robot economy</p>
+    <p>Request autonomous robots for delivery, transportation, inspection, security, and more. Owners list robots, accept jobs, and earn when work is completed.</p>
+  </section>
+
+  <section class="market">
+    <div>
+      <p class="sectionTag">MongMarket</p>
+      <h2>Grab for<br>robots.</h2>
+    </div>
+    <div class="marketCopy">
+      <p>The marketplace connects people who need robotic services with people who own robots, creating a peer-to-peer robot sharing economy. Jobs are assigned through the platform, completed by autonomous robots, and paid for in the app.</p>
+      <div class="marketLine">
+        <span>REQUEST</span><i></i><span>MATCH</span><i></i><span>COMPLETE</span><i></i><span>EARN</span>
+      </div>
+      <p class="plain">In simple terms: Grab for robots.</p>
+    </div>
+  </section>
+
+  <nav class="pageNext">
+    <a href="about.html"><span>Next</span><strong>About</strong></a>
+    <a href="mongcore.html"><span>Also see</span><strong>MongCore</strong></a>
+  </nav>
+
+</main>
+<footer>
+  <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+  <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
+  <div>
+    <a href="technology.html">Technology</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+  </div>
+  <span>&#169; 2026 Mongbotics</span>
+</footer>
+<script>
+// The dropdown opens on hover and on keyboard focus through CSS alone. This
+// adds click, which is what a trackpad tap and a touch device actually send,
+// plus Escape and click-outside to close it again.
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  var btn = menu.querySelector(".menuBtn");
+
+  function close() {
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      close();
+      btn.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>

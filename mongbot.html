@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MongBot | Mongbotics</title>
+  <meta name="description" content="MongBot is our last-mile autonomous delivery robot, engineered for indoor and outdoor operations.">
+  <meta property="og:title" content="MongBot | Mongbotics">
+  <meta property="og:description" content="MongBot is our last-mile autonomous delivery robot, engineered for indoor and outdoor operations.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=56658c61">
+</head>
+<body>
+<main>
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+    <div class="links">
+        <a href="index.html">Home</a>
+        <div class="menu">
+          <button type="button" class="menuBtn active" aria-expanded="false" aria-controls="productMenu">
+            Product <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="menuList" id="productMenu">
+            <div class="menuInner">
+          <a href="technology.html">Overview</a>
+          <a href="mongbot.html" class="active">MongBot</a>
+          <a href="mongcore.html">MongCore</a>
+          <a href="mongmarket.html">MongMarket</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html">About Us</a>
+    </div>
+    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+  </nav>
+
+  <section class="pageHero">
+    <img src="images/mongbot-hero.jpg" alt="A MongBot robot on a wet city street at night, city lights reflected on the road">
+    <div class="heroShade"></div>
+    <div class="pageHeroCopy">
+      <p class="eyebrow"><span></span> Meet MongBot</p>
+      <h1>Built to move through<br>the <em>real world.</em></h1>
+    </div>
+  </section>
+
+  <section class="pageIntro">
+    <p class="sectionTag">MongBot / 01</p>
+    <p>Designed for residential communities, commercial districts, office buildings, campuses, and controlled public roads.</p>
+  </section>
+
+  <section class="specBuild">
+    <div class="specRail">
+      <p class="sectionTag">Detailed specifications</p>
+      <h2>Engineered for the long shift.</h2>
+      <p>Every number here comes from the production platform we build on with our hardware partners.</p>
+      <div class="specRow"><span>Recommended payload</span><strong>50 kg</strong></div>
+      <div class="specRow"><span>Maximum static load</span><strong>200 kg</strong></div>
+      <div class="specRow"><span>Maximum speed</span><strong>2.5 m/s</strong></div>
+      <div class="specRow"><span>Maximum climb</span><strong>30&#176;</strong></div>
+      <div class="specRow"><span>Operating time</span><strong>12&#8211;15 h</strong></div>
+      <div class="specRow"><span>Full charge</span><strong>3 h</strong></div>
+      <div class="specRow"><span>Obstacle clearance</span><strong>&lt; 3 cm</strong></div>
+      <div class="specRow"><span>Battery type</span><strong>LiFePO&#8324;</strong></div>
+      <p class="specDim">L 75 cm &#215; W 56 cm &#183; customizable height</p>
+    </div>
+    <div class="specShots">
+      <figure>
+        <img src="images/features/house.jpg" alt="MongBot delivering to a residential doorway">
+        <figcaption>Residential communities</figcaption>
+      </figure>
+      <figure>
+        <img src="images/features/metro.jpg" alt="MongBot operating beside a metro line">
+        <figcaption>Controlled public roads</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sense">
+    <div>
+      <p class="sectionTag">How it sees</p>
+      <h2>Four sensor systems, always on.</h2>
+    </div>
+    <div class="senseList">
+      <div><i>01</i><span>3D LiDAR</span></div>
+      <div><i>02</i><span>Infrared wide-angle camera</span></div>
+      <div><i>03</i><span>3D depth camera</span></div>
+      <div><i>04</i><span>4&#215; ultrasonic sensors</span></div>
+    </div>
+    <img class="senseDiagram" src="images/features/specs.jpg" alt="MongBot sensor layout: 3D LiDAR, infrared wide-angle camera, 3D depth camera and bumper bar">
+  </section>
+
+  <section class="network">
+    <div class="networkCopy">
+      <p class="sectionTag">Where it operates</p>
+      <h2>Indoors, outdoors,<br>and everywhere between.</h2>
+      <p class="networkTags">Residential communities &#183; Commercial districts &#183; Office buildings &#183; Campuses &#183; Controlled public roads</p>
+    </div>
+    <img src="images/network.jpg" alt="An isometric city map showing MongBot delivering to hotels, hospitals, industrial parks, campuses, residential communities, offices, convenience stores and public roads">
+  </section>
+
+  <nav class="pageNext">
+    <a href="mongcore.html"><span>Next</span><strong>MongCore</strong></a>
+    <a href="technology.html"><span>Also see</span><strong>Technology</strong></a>
+  </nav>
+
+</main>
+<footer>
+  <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+  <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
+  <div>
+    <a href="technology.html">Technology</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+  </div>
+  <span>&#169; 2026 Mongbotics</span>
+</footer>
+<script>
+// The dropdown opens on hover and on keyboard focus through CSS alone. This
+// adds click, which is what a trackpad tap and a touch device actually send,
+// plus Escape and click-outside to close it again.
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  var btn = menu.querySelector(".menuBtn");
+
+  function close() {
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      close();
+      btn.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>

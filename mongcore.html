@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MongCore | Mongbotics</title>
+  <meta name="description" content="MongCore is one application to onboard, monitor, command, and manage every supported robot.">
+  <meta property="og:title" content="MongCore | Mongbotics">
+  <meta property="og:description" content="MongCore is one application to onboard, monitor, command, and manage every supported robot.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=56658c61">
+</head>
+<body>
+<main>
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+    <div class="links">
+        <a href="index.html">Home</a>
+        <div class="menu">
+          <button type="button" class="menuBtn active" aria-expanded="false" aria-controls="productMenu">
+            Product <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="menuList" id="productMenu">
+            <div class="menuInner">
+          <a href="technology.html">Overview</a>
+          <a href="mongbot.html">MongBot</a>
+          <a href="mongcore.html" class="active">MongCore</a>
+          <a href="mongmarket.html">MongMarket</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html">About Us</a>
+    </div>
+    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+  </nav>
+
+  <section class="pageHero">
+    <img src="images/control-system.jpg" alt="The MongCore control application beside a MongBot robot">
+    <div class="heroShade"></div>
+    <div class="pageHeroCopy">
+      <p class="eyebrow"><span></span> MongCore</p>
+      <h1>Your entire robot fleet,<br>in <em>one place.</em></h1>
+    </div>
+  </section>
+
+  <section class="pageIntro">
+    <p class="sectionTag">Universal robot control</p>
+    <p>See live status, assign tasks, issue commands, track activity, and access every robot&#8217;s identity and history through a unified interface.</p>
+  </section>
+
+  <section class="control">
+    <div class="controlCopy">
+      <p class="sectionTag">MongCore</p>
+      <h2>One application.<br>Every robot.</h2>
+      <p>Individuals and companies can onboard supported robots and manage them day to day from a single control interface, whatever the make.</p>
+      <ul>
+        <li><span>01</span>Real-time robot operations</li>
+        <li><span>02</span>Universal fleet control</li>
+        <li><span>03</span>Connected robot profiles</li>
+      </ul>
+    </div>
+    <img src="images/control-system.jpg" alt="The MongCore control application beside a MongBot robot">
+  </section>
+
+  <section class="manifesto">
+    <p class="sectionTag">Connected identity</p>
+    <h2>Every profile is tied to its <span>on-chain Soul.</span></h2>
+    <p class="manifestoBody">Each robot in MongCore has a profile connected to its on-chain Soul.md, bringing identity, ownership, history, performance, and personality directly into the control interface.</p>
+  </section>
+
+  <nav class="pageNext">
+    <a href="mongmarket.html"><span>Next</span><strong>MongMarket</strong></a>
+    <a href="mongbot.html"><span>Also see</span><strong>MongBot</strong></a>
+  </nav>
+
+</main>
+<footer>
+  <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+  <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
+  <div>
+    <a href="technology.html">Technology</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+  </div>
+  <span>&#169; 2026 Mongbotics</span>
+</footer>
+<script>
+// The dropdown opens on hover and on keyboard focus through CSS alone. This
+// adds click, which is what a trackpad tap and a touch device actually send,
+// plus Escape and click-outside to close it again.
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  var btn = menu.querySelector(".menuBtn");
+
+  function close() {
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      close();
+      btn.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>

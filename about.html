@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us | Mongbotics</title>
+  <meta name="description" content="Thailand's first decentralized robotics company, building the control layer for personally owned autonomous robots.">
+  <meta property="og:title" content="About Us | Mongbotics">
+  <meta property="og:description" content="Thailand's first decentralized robotics company, building the control layer for personally owned autonomous robots.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=56658c61">
+</head>
+<body>
+<main>
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+    <div class="links">
+        <a href="index.html">Home</a>
+        <div class="menu">
+          <button type="button" class="menuBtn" aria-expanded="false" aria-controls="productMenu">
+            Product <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="menuList" id="productMenu">
+            <div class="menuInner">
+          <a href="technology.html">Overview</a>
+          <a href="mongbot.html">MongBot</a>
+          <a href="mongcore.html">MongCore</a>
+          <a href="mongmarket.html">MongMarket</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html" class="active">About Us</a>
+    </div>
+    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+  </nav>
+
+  <section class="pageHero cropLow">
+    <img src="images/about-hero.jpg" alt="A MongBot robot at rest on a quiet Bangkok street at night, warm light from a shopfront falling across it">
+    <div class="heroShade"></div>
+    <div class="pageHeroCopy">
+      <p class="eyebrow"><span></span> About Mongbotics</p>
+      <h1>Robots with<br>a <em>soul.</em></h1>
+    </div>
+  </section>
+
+  <section class="pageIntro">
+    <p class="sectionTag">Who we are</p>
+    <p>We are Thailand&#8217;s first robotics company building our MongBot robots on a decentralized autonomous control system. Our mission is to build a global decentralized control layer that makes robots easy for anyone to own, use, and share.</p>
+  </section>
+
+  <section class="why">
+    <p class="sectionTag">Why now</p>
+    <h2>The autonomous revolution is here.</h2>
+    <div class="whyGrid">
+      <div>
+        <h4>Ownership needs a digital layer</h4>
+        <p>As robots gain autonomy, mobility, and value, they need persistent identity, verifiable ownership, and portable history. Blockchain provides the infrastructure for that.</p>
+      </div>
+      <div>
+        <h4>Robots can become an economic network</h4>
+        <p>Once robots can be securely owned, controlled, and transferred, they can also be shared, hired, and put to work through a global marketplace.</p>
+      </div>
+      <div>
+        <h4>The infrastructure does not exist yet</h4>
+        <p>Autonomous robots are moving toward a future where individuals and businesses can own and operate them as easily as other connected devices. Today there is no digital infrastructure to support that.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <p class="sectionTag">The thesis</p>
+    <h2>Autonomous robots should be as <span>personal and accessible</span> as smartphones.</h2>
+    <p class="manifestoBody">We believe the robots people choose to live and work alongside should have identity, personality, and character. Some of the most memorable robots in science fiction became cultural icons because they felt alive. We want to bring that same sense of individuality to real-world robots.</p>
+  </section>
+
+  <section class="reach" id="contact">
+    <div>
+      <p class="sectionTag">Talk to us</p>
+      <h2>Partner with<br>Mongbotics.</h2>
+    </div>
+    <dl>
+      <dt>Email</dt>
+      <dd><a href="mailto:hello@mongbotics.com">hello@mongbotics.com</a></dd>
+      <dt>Location</dt>
+      <dd>Bangkok, Thailand</dd>
+    </dl>
+  </section>
+
+  <nav class="pageNext">
+    <a href="technology.html"><span>Next</span><strong>Technology</strong></a>
+    <a href="index.html"><span>Back to</span><strong>Home</strong></a>
+  </nav>
+
+</main>
+<footer>
+  <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+  <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
+  <div>
+    <a href="technology.html">Technology</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+  </div>
+  <span>&#169; 2026 Mongbotics</span>
+</footer>
+<script>
+// The dropdown opens on hover and on keyboard focus through CSS alone. This
+// adds click, which is what a trackpad tap and a touch device actually send,
+// plus Escape and click-outside to close it again.
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  var btn = menu.querySelector(".menuBtn");
+
+  function close() {
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      close();
+      btn.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
