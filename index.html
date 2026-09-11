@@ -11,7 +11,7 @@
   <meta property="og:image" content="og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=56658c61">
+  <link rel="stylesheet" href="styles.css?v=d8db2bda">
 </head>
 <body>
 <main>
@@ -35,8 +35,20 @@
         </div>
         <a href="about.html">About Us</a>
     </div>
-    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+    <a class="navCta" href="about.html#contact"><span class="navCtaText">Build with us</span> <span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <button type="button" class="navBurger" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
   </nav>
+  <div class="mobileNav" id="mobileNav" hidden>
+    <a href="index.html" class="active">Home</a>
+    <a href="technology.html">Overview</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+    <a class="mobileCta" href="about.html#contact">Build with us <span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+  </div>
 
   <section id="top" class="hero">
     <img class="heroImage" src="images/construction.jpg" alt="A MongBot autonomous robot operating at night">
@@ -45,7 +57,7 @@
       <p class="eyebrow"><span></span> Thailand&#8217;s first decentralized robotics company</p>
       <h1>Robots with<br><em>soul.</em></h1>
       <div class="actions">
-        <a class="primary" href="#ecosystem">Discover the ecosystem <span aria-hidden="true">&#8599;</span></a>
+        <a class="primary" href="#ecosystem">Discover the ecosystem <span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
         <a class="textLink" href="mongbot.html">Meet MongBot <span>&#8595;</span></a>
       </div>
     </div>
@@ -76,7 +88,7 @@
           <h3>MongBot</h3>
           <p>Our last-mile autonomous delivery robot, engineered for indoor and outdoor operations.</p>
         </div>
-        <a href="mongbot.html" aria-label="Explore MongBot">&#8599;</a>
+        <a href="mongbot.html" aria-label="Explore MongBot"><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
       </article>
       <article class="product">
         <span class="number">02</span>
@@ -84,7 +96,7 @@
           <h3>MongCore</h3>
           <p>One intuitive application to onboard, monitor, command, and manage supported robots.</p>
         </div>
-        <a href="mongcore.html" aria-label="Explore MongCore">&#8599;</a>
+        <a href="mongcore.html" aria-label="Explore MongCore"><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
       </article>
       <article class="product">
         <span class="number">03</span>
@@ -92,7 +104,7 @@
           <h3>MongChain</h3>
           <p>Permanent on-chain identity, history, and verifiable ownership for every robot.</p>
         </div>
-        <a href="technology.html" aria-label="Explore MongChain">&#8599;</a>
+        <a href="technology.html" aria-label="Explore MongChain"><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
       </article>
       <article class="product">
         <span class="number">04</span>
@@ -100,7 +112,7 @@
           <h3>MongMarket</h3>
           <p>A peer-to-peer network where anyone can request a robot and owners can put theirs to work.</p>
         </div>
-        <a href="mongmarket.html" aria-label="Explore MongMarket">&#8599;</a>
+        <a href="mongmarket.html" aria-label="Explore MongMarket"><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
       </article>
     </div>
   </section>
@@ -117,7 +129,7 @@
   <section class="cta">
     <p class="sectionTag">The autonomous future is arriving</p>
     <h2>Let&#8217;s build it<br>together.</h2>
-    <a href="about.html#contact">Partner with Mongbotics <span aria-hidden="true">&#8599;</span></a>
+    <a href="about.html#contact">Partner with Mongbotics <span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
   </section>
 
 </main>
@@ -162,6 +174,43 @@
       close();
       btn.focus();
     }
+  });
+})();
+
+// The phone menu. The panel is hidden rather than display:none'd from CSS so
+// that it stays out of the tab order while closed. Escape and a second tap on
+// the burger both close it.
+(function () {
+  var burger = document.querySelector(".navBurger");
+  var panel = document.getElementById("mobileNav");
+  if (!burger || !panel) return;
+
+  function set(open) {
+    panel.hidden = !open;
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.classList.toggle("open", open);
+    document.body.classList.toggle("navOpen", open);
+  }
+
+  burger.addEventListener("click", function () {
+    set(panel.hidden);
+  });
+
+  panel.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") set(false);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !panel.hidden) {
+      set(false);
+      burger.focus();
+    }
+  });
+
+  // Coming back over the breakpoint with the panel open would otherwise leave
+  // the body locked and a stray panel under the desktop nav.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 800 && !panel.hidden) set(false);
   });
 })();
 </script>

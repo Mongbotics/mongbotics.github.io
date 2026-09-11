@@ -21,6 +21,14 @@ def css_version():
 
 CSS = "styles.css?v=" + css_version()
 
+# The span is the box the old arrow character occupied. Keeping it means every
+# layout around the arrow stays exactly as it was; only the glyph inside changes.
+ARROW = ('<span class="arw" aria-hidden="true">'
+         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+         ' stroke-width="2.2" stroke-linecap="square" focusable="false">'
+         '<path d="M7 17 17 7M9 7h8v8"/></svg></span>')
+
+
 # The Product dropdown. "Overview" is the old Technology page, which is how
 # MongChain and Soul.md stay reachable from the nav at all.
 PRODUCTS = [("technology.html", "Overview"), ("mongbot.html", "MongBot"),
@@ -50,6 +58,9 @@ def head(title, desc, page):
         " active" if on_product else "",
         items,
         ' class="active"' if page == "about.html" else "")
+    mobile = "\n".join(
+        '    <a href="%s"%s>%s</a>' % (h, ' class="active"' if h == page else '', t)
+        for h, t in [("index.html", "Home")] + PRODUCTS + [("about.html", "About Us")])
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -73,8 +84,15 @@ def head(title, desc, page):
     <div class="links">
 {links}
     </div>
-    <a class="navCta" href="about.html#contact">Build with us <span aria-hidden="true">&#8599;</span></a>
+    <a class="navCta" href="about.html#contact"><span class="navCtaText">Build with us</span> {ARROW}</a>
+    <button type="button" class="navBurger" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
   </nav>
+  <div class="mobileNav" id="mobileNav" hidden>
+{mobile}
+    <a class="mobileCta" href="about.html#contact">Build with us {ARROW}</a>
+  </div>
 '''
 
 
@@ -158,6 +176,43 @@ NAV_SCRIPT = '''<script>
     }
   });
 })();
+
+// The phone menu. The panel is hidden rather than display:none'd from CSS so
+// that it stays out of the tab order while closed. Escape and a second tap on
+// the burger both close it.
+(function () {
+  var burger = document.querySelector(".navBurger");
+  var panel = document.getElementById("mobileNav");
+  if (!burger || !panel) return;
+
+  function set(open) {
+    panel.hidden = !open;
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.classList.toggle("open", open);
+    document.body.classList.toggle("navOpen", open);
+  }
+
+  burger.addEventListener("click", function () {
+    set(panel.hidden);
+  });
+
+  panel.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") set(false);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !panel.hidden) {
+      set(false);
+      burger.focus();
+    }
+  });
+
+  // Coming back over the breakpoint with the panel open would otherwise leave
+  // the body locked and a stray panel under the desktop nav.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 800 && !panel.hidden) set(false);
+  });
+})();
 </script>
 '''
 
@@ -196,7 +251,7 @@ pages["index.html"] = (
       <p class="eyebrow"><span></span> Thailand&#8217;s first decentralized robotics company</p>
       <h1>Robots with<br><em>soul.</em></h1>
       <div class="actions">
-        <a class="primary" href="#ecosystem">Discover the ecosystem <span aria-hidden="true">&#8599;</span></a>
+        <a class="primary" href="#ecosystem">Discover the ecosystem ''' + ARROW + '''</a>
         <a class="textLink" href="mongbot.html">Meet MongBot <span>&#8595;</span></a>
       </div>
     </div>
@@ -229,7 +284,7 @@ pages["index.html"] = (
           <h3>MongBot</h3>
           <p>Our last-mile autonomous delivery robot, engineered for indoor and outdoor operations.</p>
         </div>
-        <a href="mongbot.html" aria-label="Explore MongBot">&#8599;</a>
+        <a href="mongbot.html" aria-label="Explore MongBot">''' + ARROW + '''</a>
       </article>
       <article class="product">
         <span class="number">02</span>
@@ -237,7 +292,7 @@ pages["index.html"] = (
           <h3>MongCore</h3>
           <p>One intuitive application to onboard, monitor, command, and manage supported robots.</p>
         </div>
-        <a href="mongcore.html" aria-label="Explore MongCore">&#8599;</a>
+        <a href="mongcore.html" aria-label="Explore MongCore">''' + ARROW + '''</a>
       </article>
       <article class="product">
         <span class="number">03</span>
@@ -245,7 +300,7 @@ pages["index.html"] = (
           <h3>MongChain</h3>
           <p>Permanent on-chain identity, history, and verifiable ownership for every robot.</p>
         </div>
-        <a href="technology.html" aria-label="Explore MongChain">&#8599;</a>
+        <a href="technology.html" aria-label="Explore MongChain">''' + ARROW + '''</a>
       </article>
       <article class="product">
         <span class="number">04</span>
@@ -253,7 +308,7 @@ pages["index.html"] = (
           <h3>MongMarket</h3>
           <p>A peer-to-peer network where anyone can request a robot and owners can put theirs to work.</p>
         </div>
-        <a href="mongmarket.html" aria-label="Explore MongMarket">&#8599;</a>
+        <a href="mongmarket.html" aria-label="Explore MongMarket">''' + ARROW + '''</a>
       </article>
     </div>
   </section>
@@ -270,7 +325,7 @@ pages["index.html"] = (
   <section class="cta">
     <p class="sectionTag">The autonomous future is arriving</p>
     <h2>Let&#8217;s build it<br>together.</h2>
-    <a href="about.html#contact">Partner with Mongbotics <span aria-hidden="true">&#8599;</span></a>
+    <a href="about.html#contact">Partner with Mongbotics ''' + ARROW + '''</a>
   </section>
 '''
     + footer())

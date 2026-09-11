@@ -184,6 +184,61 @@ img {
   color: var(--blue);
 }
 
+/* The diagonal arrow is drawn rather than typed. Arial carries no glyph for
+   U+2197, so iOS fell back to the colour emoji font and the arrow arrived as
+   an emoji. A shape has no font to fall back to. */
+
+.arw {
+  display: inline-block;
+  flex: none;
+}
+
+.arw svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+
+/* Phone menu. The desktop .links row is hidden below 800px, so without this
+   there is no way to reach any other page from the top of a phone screen. */
+
+.navBurger {
+  display: none;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.navBurger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--ink);
+  transition: transform .2s, opacity .2s;
+}
+
+.navBurger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.navBurger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navBurger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.mobileNav {
+  display: none;
+}
+
 .hero {
   height: 100vh;
   min-height: 720px;
@@ -259,6 +314,18 @@ img {
   gap: 34px;
   font-size: 13px;
   font-weight: 700;
+}
+
+/* The arrow character used to sit in a 20px line box from its fallback font,
+   and that box is what set this button's height. The drawn arrow keeps the
+   same box so the button does not change size. The svg scales to fit, so the
+   arrow itself stays 1em and is centred in it. */
+.primary .arw {
+  height: 20px;
+}
+
+.primary .arw svg {
+  margin-top: 3px;
 }
 
 .textLink {
@@ -872,13 +939,51 @@ footer>span {
     display: none;
   }
   .navCta {
-    font-size: 0;
+    display: none;
   }
-  .navCta span {
+  .navBurger {
+    display: flex;
+  }
+  .mobileNav:not([hidden]) {
+    display: block;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 6vw 24px;
+  }
+  .mobileNav a {
+    display: block;
+    padding: 16px 0;
+    font-size: 17px;
+    letter-spacing: -.02em;
+    border-bottom: 1px solid var(--line);
+  }
+  .mobileNav a.active {
+    color: var(--blue);
+  }
+  .mobileNav .mobileCta {
+    margin-top: 22px;
+    padding: 17px 22px;
+    border-bottom: 0;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
     font-size: 15px;
+    display: flex;
+    justify-content: space-between;
   }
+  body.navOpen {
+    overflow: hidden;
+  }
+  /* 100vh on a phone is the whole screen, which pushed the headline to the
+     fold and left the frame mostly empty dark image above it. */
   .hero {
-    min-height: 700px;
+    height: 72vh;
+    min-height: 560px;
   }
   .heroCopy {
     left: 6vw;
@@ -913,6 +1018,22 @@ footer>span {
   }
   .productGrid {
     grid-template-columns: 1fr;
+  }
+  .product {
+    grid-template-columns: 40px 1fr;
+    padding: 30px 6vw;
+    gap: 14px;
+    min-height: 0;
+  }
+  /* the arrow was a third column. It wraps to its own row now, so keep it
+     under the copy rather than under the number. */
+  .product>a {
+    grid-column: 2;
+    justify-self: end;
+  }
+  .product h3 {
+    margin: 16px 0 12px;
+    font-size: 30px;
   }
   .product:nth-child(odd) {
     border-right: 0;
@@ -1200,7 +1321,9 @@ footer>span {
 }
 
 @media(max-width:800px) {
-  .pageHero { height: auto; min-height: 380px; }
+  /* height:auto left the img's height:100% with nothing to resolve against,
+     so the photo stopped short and the headline sat on bare gradient. */
+  .pageHero { height: 56vh; min-height: 420px; }
   .pageHeroCopy { bottom: 44px; left: 6vw; right: 6vw; }
   .pageIntro { grid-template-columns: 1fr; padding: 70px 6vw; }
   .pageIntro p:not(.sectionTag) { font-size: 18px; }
