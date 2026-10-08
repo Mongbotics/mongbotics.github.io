@@ -36,6 +36,74 @@ PRODUCTS = [("technology.html", "Overview"), ("mongbot.html", "MongBot"),
 
 PRODUCT_PAGES = {"technology.html", "mongbot.html", "mongcore.html", "mongmarket.html"}
 
+INSTAGRAM = "https://www.instagram.com/mongbotics/"
+IG_ICON = ('<svg class="igIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+           ' stroke-width="2" aria-hidden="true" focusable="false">'
+           '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/>'
+           '<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>')
+
+# News, newest first. Every word here comes from the team's own Instagram post
+# or from the user in chat. "photos" is optional: a list of (file, alt text),
+# shown as a slideshow that fades every 3 seconds, with arrows, squares and
+# phone swipe. Leave it out and the row simply has no picture. Originals are in
+# MongboticIG/Post ,/<post>; images/news holds the optimised copies.
+# "id" becomes the anchor, index.html#<id>.
+# There is no News page: these show only in the Home page news section.
+NEWS = [
+    {"id": "protocol-camp-seoul",
+     "date": "30 Sep 2026", "place": "Seoul",
+     "title": "Representing Mongbotics at the Protocol Camp kick-off in Seoul, South Korea",
+     "text": "Protocol Camp Cohort 10 kicked off in Seoul, hosted by Hashed and ShardLab. "
+             "We are the only team from Thailand selected for this cohort, and presented "
+             "MongBot and the story behind what we are building.",
+     "link": "https://www.instagram.com/p/DeI51D9Cf61/",
+     "photos": [
+         ("images/news/protocol-camp-5.jpg", "Presenting the MongBot product overview on stage at the Protocol Camp kick-off in Seoul"),
+         ("images/news/protocol-camp-4.jpg", "The Mongbotics presentation seen from the audience at Protocol Camp"),
+         ("images/news/protocol-camp-6.jpg", "At the Next Builders wall at Protocol Camp in Seoul"),
+         ("images/news/protocol-camp-7.jpg", "A selfie in front of the Next Builders wall at Protocol Camp"),
+         ("images/news/protocol-camp-1.jpg", "Welcome remarks on stage at the Protocol Camp Cohort 10 kick-off"),
+         ("images/news/protocol-camp-2.jpg", "On stage at the Protocol Camp Cohort 10 kick-off"),
+         ("images/news/protocol-camp-3.jpg", "The AI panel talk at the Protocol Camp Cohort 10 kick-off"),
+     ]},
+]
+
+
+def news_gallery(photos):
+    # first photo visible without JavaScript; the script adds the fading
+    imgs = "".join(
+        '\n          <img src="%s" alt="%s"%s>'
+        % (src, alt, ' class="on"' if k == 0 else ' loading="lazy"')
+        for k, (src, alt) in enumerate(photos))
+    if len(photos) == 1:
+        return f'''
+      <div class="gal"><div class="galFrame">{imgs}
+        </div></div>'''
+    dots = "".join(f'<button type="button" aria-label="Photo {k + 1}"></button>' for k in range(len(photos)))
+    return f'''
+      <div class="gal">
+        <div class="galFrame">{imgs}
+        </div>
+        <div class="galCtl">
+          <div class="galDots">{dots}</div>
+          <div class="galBtns"><button type="button" class="galPrev" aria-label="Previous photo">&#8249;</button><button type="button" class="galNext" aria-label="Next photo">&#8250;</button></div>
+        </div>
+      </div>'''
+
+
+def news_item(n):
+    photo = news_gallery(n["photos"]) if n.get("photos") else ""
+    link = (f'\n        <a class="igLink" href="{n["link"]}" target="_blank" rel="noopener">'
+            f'{IG_ICON}See the post on Instagram</a>' if n.get("link") else "")
+    return f'''
+    <article class="newsItem{" hasPhoto" if n.get("photos") else ""}" id="{n["id"]}">
+      <div>
+        <p class="newsDate">{n["date"]} &#183; {n["place"]}</p>
+        <h3>{n["title"]}</h3>
+        <p>{n["text"]}</p>{link}
+      </div>{photo}
+    </article>'''
+
 
 def head(title, desc, page):
     items = "\n".join(
@@ -217,6 +285,48 @@ NAV_SCRIPT = '''<script>
 '''
 
 
+# The news slideshow: fades to the next photo every 3 seconds, pauses while the
+# mouse is over it, and restarts the timer after any click or swipe.
+GALLERY_SCRIPT = '''<script>
+document.querySelectorAll(".gal").forEach(function (g) {
+  var imgs = g.querySelectorAll(".galFrame img"), dots = g.querySelectorAll(".galDots button");
+  if (imgs.length < 2) return;
+  var at = 0, timer, x0 = null;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function show(k) {
+    at = (k + imgs.length) % imgs.length;
+    imgs.forEach(function (m, j) { m.classList.toggle("on", j === at); });
+    dots.forEach(function (d, j) { d.classList.toggle("on", j === at); });
+  }
+  function restart() {
+    clearInterval(timer);
+    if (!still) timer = setInterval(function () { show(at + 1); }, 3000);
+  }
+  function go(k) { show(k); restart(); }
+  dots.forEach(function (d, j) { d.onclick = function () { go(j); }; });
+  g.querySelector(".galPrev").onclick = function () { go(at - 1); };
+  g.querySelector(".galNext").onclick = function () { go(at + 1); };
+  var frame = g.querySelector(".galFrame");
+  frame.addEventListener("pointerdown", function (e) { x0 = e.clientX; });
+  frame.addEventListener("pointerup", function (e) {
+    if (x0 === null) return;
+    var dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) go(at + (dx < 0 ? 1 : -1));
+  });
+  // pause for a real mouse only: on a phone a tap counts as "mouse enter" and
+  // there is never a "leave", so the slideshow would stop for good
+  g.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") clearInterval(timer); });
+  g.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") restart(); });
+  frame.addEventListener("pointercancel", function () { x0 = null; });
+  // the later photos load lazily; fetch them once the page has settled
+  window.addEventListener("load", function () { imgs.forEach(function (m) { m.loading = "eager"; }); });
+  show(0);
+  restart();
+});
+</script>
+'''
+
+
 def footer(scripts=NAV_SCRIPT):
     return '''
 </main>
@@ -230,7 +340,9 @@ def footer(scripts=NAV_SCRIPT):
     <a href="mongmarket.html">MongMarket</a>
     <a href="about.html">About Us</a>
   </div>
-  <span>&#169; 2026 Mongbotics</span>
+  <span>&#169; 2026 Mongbotics
+    <a class="igLink" href="''' + INSTAGRAM + '''" target="_blank" rel="noopener">''' + IG_ICON + '''Instagram</a>
+  </span>
 </footer>
 ''' + scripts + '''</body>
 </html>
@@ -322,13 +434,23 @@ pages["index.html"] = (
     <img src="images/network.jpg" alt="An isometric city showing MongBot delivering to hotels, hospitals, campuses, residential communities, offices, convenience stores and public roads">
   </section>
 
+'''
+    + ('''
+  <section class="newsList newsHome">
+    <div class="newsHead">
+      <p class="sectionTag">News</p>
+      <h2>Latest from<br>Mongbotics.</h2>
+    </div>''' + "".join(news_item(n) for n in NEWS) + '''
+  </section>
+''' if NEWS else "")
+    + '''
   <section class="cta">
     <p class="sectionTag">The autonomous future is arriving</p>
     <h2>Let&#8217;s build it<br>together.</h2>
     <a href="about.html#contact">Partner with Mongbotics ''' + ARROW + '''</a>
   </section>
 '''
-    + footer())
+    + footer(NAV_SCRIPT + GALLERY_SCRIPT))
 
 # ----------------------------------------------------------- technology ---
 pages["technology.html"] = (
@@ -554,6 +676,8 @@ pages["about.html"] = (
     <dl>
       <dt>Email</dt>
       <dd><a href="mailto:hello@mongbotics.com">hello@mongbotics.com</a></dd>
+      <dt>Instagram</dt>
+      <dd><a href="''' + INSTAGRAM + '''" target="_blank" rel="noopener">@mongbotics</a></dd>
       <dt>Location</dt>
       <dd>Bangkok, Thailand</dd>
     </dl>

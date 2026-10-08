@@ -1399,3 +1399,183 @@ footer>span {
     padding: 80px 6vw;
   }
 }
+
+/* Home page news. Layout B: text on the left, optional photo on the right */
+
+.newsList {
+  padding: 110px 7vw;
+  border-bottom: 1px solid var(--line);
+}
+
+.newsHead {
+  margin-bottom: 36px;
+}
+
+.newsHead h2 {
+  font-size: clamp(40px,5vw,74px);
+  line-height: .96;
+  letter-spacing: -.055em;
+  font-weight: 600;
+  margin: 14px 0 0;
+}
+
+.newsItem {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding: 30px 0;
+  scroll-margin-top: 90px;
+}
+
+.newsItem.hasPhoto {
+  grid-template-columns: 1fr 380px;
+}
+
+/* Slideshow: every photo stacked in one frame, the "on" one faded in */
+.galFrame {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: #dfe7f1;
+  touch-action: pan-y;
+}
+
+.galFrame img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .9s;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.galFrame img.on {
+  opacity: 1;
+}
+
+.galCtl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.galDots {
+  display: flex;
+  gap: 6px;
+}
+
+.galDots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  background: var(--line);
+  cursor: pointer;
+}
+
+.galDots button.on {
+  background: var(--blue);
+}
+
+.galBtns {
+  display: flex;
+  gap: 6px;
+}
+
+.galBtns button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.galBtns button:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.newsDate {
+  font: 12px monospace;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.newsItem h3 {
+  font-size: clamp(22px,2.4vw,30px);
+  letter-spacing: -.04em;
+  line-height: 1.08;
+  font-weight: 700;
+  margin: 10px 0 12px;
+  max-width: 30ch;
+}
+
+.newsItem p:not(.newsDate) {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 16px;
+  margin: 0;
+  max-width: 62ch;
+}
+
+.igLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--blue);
+}
+
+.newsItem .igLink {
+  margin-top: 16px;
+}
+
+.igIcon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+/* Bottom line of the footer: copyright on the left, Instagram on the right */
+footer>span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+footer .igLink {
+  color: #b9c6d4;
+  font: inherit;
+  gap: 7px;
+}
+
+footer .igLink:hover {
+  color: white;
+}
+
+footer .igIcon {
+  width: 14px;
+  height: 14px;
+}
+
+
+@media(max-width:800px) {
+  .newsList {
+    padding: 74px 6vw;
+  }
+  .newsItem.hasPhoto {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
