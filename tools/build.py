@@ -21,12 +21,7 @@ def css_version():
 
 CSS = "styles.css?v=" + css_version()
 
-# The span is the box the old arrow character occupied. Keeping it means every
-# layout around the arrow stays exactly as it was; only the glyph inside changes.
-ARROW = ('<span class="arw" aria-hidden="true">'
-         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-         ' stroke-width="2.2" stroke-linecap="square" focusable="false">'
-         '<path d="M7 17 17 7M9 7h8v8"/></svg></span>')
+# No arrows on buttons or cards: the user chose plain labels on 2026-10-08.
 
 
 # The Product dropdown. "Overview" is the old Technology page, which is how
@@ -152,14 +147,14 @@ def head(title, desc, page):
     <div class="links">
 {links}
     </div>
-    <a class="navCta" href="about.html#contact"><span class="navCtaText">Build with us</span> {ARROW}</a>
+    <a class="navCta" href="about.html#contact"><span class="navCtaText">Build with us</span></a>
     <button type="button" class="navBurger" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </nav>
   <div class="mobileNav" id="mobileNav" hidden>
 {mobile}
-    <a class="mobileCta" href="about.html#contact">Build with us {ARROW}</a>
+    <a class="mobileCta" href="about.html#contact">Build with us</a>
   </div>
 '''
 
@@ -363,8 +358,8 @@ pages["index.html"] = (
       <p class="eyebrow"><span></span> Thailand&#8217;s first decentralized robotics company</p>
       <h1>Robots with<br><em>soul.</em></h1>
       <div class="actions">
-        <a class="primary" href="#ecosystem">Discover the ecosystem ''' + ARROW + '''</a>
-        <a class="textLink" href="mongbot.html">Meet MongBot <span>&#8595;</span></a>
+        <a class="primary" href="#ecosystem">Discover the ecosystem</a>
+        <a class="textLink" href="mongbot.html">Meet MongBot</a>
       </div>
     </div>
     <div class="heroMeta">
@@ -396,7 +391,7 @@ pages["index.html"] = (
           <h3>MongBot</h3>
           <p>Our last-mile autonomous delivery robot, engineered for indoor and outdoor operations.</p>
         </div>
-        <a href="mongbot.html" aria-label="Explore MongBot">''' + ARROW + '''</a>
+        <a href="mongbot.html" aria-label="Explore MongBot"></a>
       </article>
       <article class="product">
         <span class="number">02</span>
@@ -404,7 +399,7 @@ pages["index.html"] = (
           <h3>MongCore</h3>
           <p>One intuitive application to onboard, monitor, command, and manage supported robots.</p>
         </div>
-        <a href="mongcore.html" aria-label="Explore MongCore">''' + ARROW + '''</a>
+        <a href="mongcore.html" aria-label="Explore MongCore"></a>
       </article>
       <article class="product">
         <span class="number">03</span>
@@ -412,7 +407,7 @@ pages["index.html"] = (
           <h3>MongChain</h3>
           <p>Permanent on-chain identity, history, and verifiable ownership for every robot.</p>
         </div>
-        <a href="technology.html" aria-label="Explore MongChain">''' + ARROW + '''</a>
+        <a href="technology.html" aria-label="Explore MongChain"></a>
       </article>
       <article class="product">
         <span class="number">04</span>
@@ -420,7 +415,7 @@ pages["index.html"] = (
           <h3>MongMarket</h3>
           <p>A peer-to-peer network where anyone can request a robot and owners can put theirs to work.</p>
         </div>
-        <a href="mongmarket.html" aria-label="Explore MongMarket">''' + ARROW + '''</a>
+        <a href="mongmarket.html" aria-label="Explore MongMarket"></a>
       </article>
     </div>
   </section>
@@ -447,7 +442,7 @@ pages["index.html"] = (
   <section class="cta">
     <p class="sectionTag">The autonomous future is arriving</p>
     <h2>Let&#8217;s build it<br>together.</h2>
-    <a href="about.html#contact">Partner with Mongbotics ''' + ARROW + '''</a>
+    <a href="about.html#contact">Partner with Mongbotics</a>
   </section>
 '''
     + footer(NAV_SCRIPT + GALLERY_SCRIPT))

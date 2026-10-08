@@ -184,20 +184,6 @@ img {
   color: var(--blue);
 }
 
-/* The diagonal arrow is drawn rather than typed. Arial carries no glyph for
-   U+2197, so iOS fell back to the colour emoji font and the arrow arrived as
-   an emoji. A shape has no font to fall back to. */
-
-.arw {
-  display: inline-block;
-  flex: none;
-}
-
-.arw svg {
-  display: block;
-  width: 1em;
-  height: 1em;
-}
 
 /* Phone menu. The desktop .links row is hidden below 800px, so without this
    there is no way to reach any other page from the top of a phone screen. */
@@ -307,26 +293,17 @@ img {
   margin-top: 46px;
 }
 
+/* min-height keeps the size the button had when it carried an arrow */
 .primary {
   background: var(--blue);
   padding: 17px 20px;
+  min-height: 54px;
   display: inline-flex;
-  gap: 34px;
+  align-items: center;
   font-size: 13px;
   font-weight: 700;
 }
 
-/* The arrow character used to sit in a 20px line box from its fallback font,
-   and that box is what set this button's height. The drawn arrow keeps the
-   same box so the button does not change size. The svg scales to fit, so the
-   arrow itself stays 1em and is centred in it. */
-.primary .arw {
-  height: 20px;
-}
-
-.primary .arw svg {
-  margin-top: 3px;
-}
 
 .textLink {
   font-size: 13px;
@@ -455,14 +432,15 @@ img {
   line-height: 1.6;
 }
 
+/* The link is empty and stretched over the whole card, so the card itself
+   is what you click. */
 .product>a {
-  background: var(--blue);
-  color: white;
-  align-self: end;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
+  position: absolute;
+  inset: 0;
+}
+
+.product:hover h3 {
+  color: var(--blue);
 }
 
 .chip {
@@ -1024,12 +1002,6 @@ footer>span {
     padding: 30px 6vw;
     gap: 14px;
     min-height: 0;
-  }
-  /* the arrow was a third column. It wraps to its own row now, so keep it
-     under the copy rather than under the number. */
-  .product>a {
-    grid-column: 2;
-    justify-self: end;
   }
   .product h3 {
     margin: 16px 0 12px;
