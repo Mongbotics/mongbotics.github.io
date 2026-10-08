@@ -143,7 +143,7 @@ def head(title, desc, page):
 <main>
 
   <nav class="nav">
-    <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+    <a class="brand" href="index.html"><span class="mark">M</span>ongbotics</a>
     <div class="links">
 {links}
     </div>
@@ -326,7 +326,7 @@ def footer(scripts=NAV_SCRIPT):
     return '''
 </main>
 <footer>
-  <a class="brand" href="index.html"><span class="mark">M</span>Mongbotics</a>
+  <a class="brand" href="index.html"><span class="mark">M</span>ongbotics</a>
   <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
   <div>
     <a href="technology.html">Technology</a>
