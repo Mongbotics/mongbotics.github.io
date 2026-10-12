@@ -5,8 +5,8 @@ import os, re
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # the site folder, one level up
 
 
-def css_version():
-    """Short hash of styles.css.
+def file_version(name="styles.css"):
+    """Short hash of a file in the site folder.
 
     Linked as styles.css?v=<hash>, the browser cannot serve a stale stylesheet:
     edit the CSS and the URL changes with it. Without this, Chrome guesses an
@@ -14,12 +14,14 @@ def css_version():
     look like they did nothing.
     """
     import hashlib
-    path = os.path.join(OUT, "styles.css")
+    path = os.path.join(OUT, name)
     with open(path, "rb") as f:
         return hashlib.sha1(f.read()).hexdigest()[:8]
 
 
-CSS = "styles.css?v=" + css_version()
+CSS = "styles.css?v=" + file_version()
+# Same trick for the tab icon. Browsers hold on to favicons even harder.
+FAVICON = "favicon.svg?v=" + file_version("favicon.svg")
 
 # No arrows on buttons or cards: the user chose plain labels on 2026-10-08.
 
@@ -136,7 +138,7 @@ def head(title, desc, page):
   <meta property="og:type" content="website">
   <meta property="og:image" content="og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{FAVICON}" type="image/svg+xml">
   <link rel="stylesheet" href="{CSS}">
 </head>
 <body>
