@@ -61,21 +61,33 @@ overwritten on the next build.
 python3 tools/build.py
 ```
 
-One Python file holds the content and emits all six pages, so the nav, footer
+One Python file holds the content and emits every page, so the nav, footer
 and shared blocks cannot drift apart. Output is plain readable HTML with no
 build step needed to serve it.
 
-Pages: `index`, `technology`, `mongbot`, `mongcore`, `mongmarket`, `about`.
+Pages: `index`, `technology`, `mongbot`, `mongcore`, `mongmarket`, `about`,
+`press`, plus one `press-<id>.html` per news story.
 
-**News** lives in the `NEWS` list near the top of `build.py`, newest first. Each
-entry has `id`, `date`, `place`, `title`, `text`, an optional `link` (the
-Instagram post) and optional `photos`, a list of (file, alt text) shown as
-a slideshow that fades every 3 seconds (the user chose this on 2026-10-08). They show only as the
-"Latest from Mongbotics." section on the Home page. There is no News page: the
-user decided against one on 2026-10-08. The section disappears when the list is
-empty. News copy comes from the team's own Instagram posts or the user, never
-invented. The Instagram account is linked from the footer's bottom line (right side)
-and the About Us contact block.
+**News and Press** live in the `NEWS` list near the top of `build.py`. Each
+entry has `id`, `date` (`30 Sep 2026`, or `Sep 2026`; this sets the order),
+`place`, `title`, `text`, an optional `link` (the Instagram post) and optional
+`photos`, a list of (file, alt text) shown as a slideshow that fades every 3
+seconds (the user chose this on 2026-10-08). News copy comes from the team's own
+Instagram posts or the user, never invented.
+
+Built like the BOTENS site's press page (`../botensai.github.io`, which the user
+calls "botten"), added 2026-11-25:
+
+- `press.html` lists every story, newest first, date shown as **MM.YYYY** only.
+  Year filter buttons appear only once there is more than one year.
+- Each story gets its own page, `press-<id>.html`, with the full date.
+- Home's "Latest from Mongbotics." shows the 3 newest, titles link to the story
+  page, and an "All press releases" button goes to `press.html`. The section
+  disappears when the list is empty.
+- "Press" is in the nav (after About Us), the phone menu and the footer.
+
+The Instagram account is linked from the footer's bottom line (right side) and
+the About Us contact block.
 
 **There is no Contact page.** It was deleted on 2026-08-27. Everything that
 used to point at it now points at `about.html#contact`, the "Partner with

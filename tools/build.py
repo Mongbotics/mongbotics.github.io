@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate the Mongbotics multi-page site. Plain HTML out, no build step needed after this."""
 import os, re
+from datetime import datetime
 
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # the site folder, one level up
 
@@ -44,9 +45,61 @@ IG_ICON = ('<svg class="igIcon" viewBox="0 0 24 24" fill="none" stroke="currentC
 # shown as a slideshow that fades every 3 seconds, with arrows, squares and
 # phone swipe. Leave it out and the row simply has no picture. Originals are in
 # MongboticIG/Post ,/<post>; images/news holds the optimised copies.
-# "id" becomes the anchor, index.html#<id>.
-# There is no News page: these show only in the Home page news section.
+# "body" is optional: more paragraphs for the story's own page only (Home shows
+# just "text"). A line starting "## " is a subheading.
+# "wide": True gives the slideshow a landscape 4:3 frame instead of the
+# portrait 4:5 one, for landscape photos such as group shots.
+# "id" names the story's own page, press-<id>.html, and its Home anchor.
+# "date" is "30 Sep 2026", or "Sep 2026" when the day is not known. It sets the
+# order, so the list does not have to be kept sorted by hand.
+# Built the same way as the BOTENS site (../botensai.github.io): every story is
+# listed on press.html and has its own page; the 3 newest also show on Home.
 NEWS = [
+    # Adapted from the BOTENS press release on the same visit (../botensai.github.io,
+    # "page-news-burapha-visit"), plus the caption of our own Instagram post.
+    # The photos are the same two as in that post.
+    {"id": "burapha-university",
+     "date": "12 Nov 2026", "place": "Chonburi",
+     "title": "Mongbotics visits Burapha University and EEC Automation Park in Thailand",
+     "text": "On 12 November 2026, the Mongbotics team visited the Faculty of Engineering at "
+             "Burapha University (BUU) in Thailand, including the EEC Automation Park, located "
+             "within the faculty.",
+     "body": [
+         "During the visit, the team held discussions with representatives from Burapha University "
+         "and EEC Automation Park, gaining insights into Thailand&#8217;s ongoing developments in "
+         "robotics, industrial automation, and smart manufacturing. The visit also provided an "
+         "opportunity to exchange perspectives on the evolving technology landscape and explore "
+         "potential areas of collaboration.",
+         "## About Burapha University (BUU)",
+         "Burapha University, located in Chonburi Province, is a leading public university in eastern "
+         "Thailand, offering a broad range of academic programs across disciplines such as engineering, "
+         "science, medicine, and social sciences.",
+         "The university is committed to advancing higher education, academic research, technological "
+         "innovation, and professional talent development. It also plays an important role in "
+         "supporting regional education, research, and industrial development.",
+         "## About EEC Automation Park",
+         "Located within the Faculty of Engineering at Burapha University, EEC Automation Park was "
+         "established through a joint initiative between the university and Mitsubishi Electric Factory "
+         "Automation (Thailand). It serves as a technology learning, demonstration, and workforce "
+         "development center supporting the industrial advancement of Thailand&#8217;s Eastern Economic "
+         "Corridor (EEC).",
+         "The center focuses on Industry 4.0 technologies, including industrial automation, robotics, "
+         "smart manufacturing, automated production systems, and digital manufacturing.",
+         "Through technology demonstrations, hands-on training, and professional skills development, "
+         "EEC Automation Park helps strengthen industrial capabilities and accelerate the adoption of "
+         "advanced automation technologies in Thailand.",
+         "## Thank you",
+         "A heartfelt thank you to the Faculty of Engineering, Burapha University, and the EEC "
+         "Automation Park team for the warm welcome and for taking the time to meet with our team.",
+         "We look forward to maintaining positive engagement and exploring potential opportunities "
+         "for future collaboration.",
+     ],
+     "link": "https://www.instagram.com/p/Dfonx_ko_Nk/",
+     "wide": True,
+     "photos": [
+         ("images/news/burapha-1.jpg", "A group photo in front of the EEC Automation Park building at Burapha University"),
+         ("images/news/burapha-2.jpg", "A group photo in the e-F@ctory showroom at EEC Automation Park"),
+     ]},
     {"id": "protocol-camp-seoul",
      "date": "30 Sep 2026", "place": "Seoul",
      "title": "Representing Mongbotics at the Protocol Camp kick-off in Seoul, South Korea",
@@ -66,7 +119,34 @@ NEWS = [
 ]
 
 
-def news_gallery(photos):
+def news_when(n):
+    for fmt in ("%d %b %Y", "%b %Y"):
+        try:
+            return datetime.strptime(n["date"], fmt)
+        except ValueError:
+            pass
+    raise ValueError("NEWS date must look like 30 Sep 2026 or Sep 2026: " + n["date"])
+
+
+NEWS.sort(key=news_when, reverse=True)
+
+
+def news_page(n):
+    return "press-" + n["id"] + ".html"
+
+
+def news_body(n):
+    out = ""
+    for para in n.get("body", []):
+        if para.startswith("## "):
+            out += f'\n      <h3>{para[3:]}</h3>'
+        else:
+            out += f'\n      <p>{para}</p>'
+    return out
+
+
+def news_gallery(photos, wide=False):
+    cls = " galWide" if wide else ""
     # first photo visible without JavaScript; the script adds the fading
     imgs = "".join(
         '\n          <img src="%s" alt="%s"%s>'
@@ -74,11 +154,11 @@ def news_gallery(photos):
         for k, (src, alt) in enumerate(photos))
     if len(photos) == 1:
         return f'''
-      <div class="gal"><div class="galFrame">{imgs}
+      <div class="gal{cls}"><div class="galFrame">{imgs}
         </div></div>'''
     dots = "".join(f'<button type="button" aria-label="Photo {k + 1}"></button>' for k in range(len(photos)))
     return f'''
-      <div class="gal">
+      <div class="gal{cls}">
         <div class="galFrame">{imgs}
         </div>
         <div class="galCtl">
@@ -89,14 +169,14 @@ def news_gallery(photos):
 
 
 def news_item(n):
-    photo = news_gallery(n["photos"]) if n.get("photos") else ""
+    photo = news_gallery(n["photos"], n.get("wide")) if n.get("photos") else ""
     link = (f'\n        <a class="igLink" href="{n["link"]}" target="_blank" rel="noopener">'
             f'{IG_ICON}See the post on Instagram</a>' if n.get("link") else "")
     return f'''
     <article class="newsItem{" hasPhoto" if n.get("photos") else ""}" id="{n["id"]}">
       <div>
         <p class="newsDate">{n["date"]} &#183; {n["place"]}</p>
-        <h3>{n["title"]}</h3>
+        <h3><a href="{news_page(n)}">{n["title"]}</a></h3>
         <p>{n["text"]}</p>{link}
       </div>{photo}
     </article>'''
@@ -118,14 +198,16 @@ def head(title, desc, page):
             </div>
           </div>
         </div>
-        <a href="about.html"%s>About Us</a>''' % (
+        <a href="about.html"%s>About Us</a>
+        <a href="press.html"%s>Press</a>''' % (
         ' class="active"' if page == "index.html" else "",
         " active" if on_product else "",
         items,
-        ' class="active"' if page == "about.html" else "")
+        ' class="active"' if page == "about.html" else "",
+        ' class="active"' if page == "press.html" else "")
     mobile = "\n".join(
         '    <a href="%s"%s>%s</a>' % (h, ' class="active"' if h == page else '', t)
-        for h, t in [("index.html", "Home")] + PRODUCTS + [("about.html", "About Us")])
+        for h, t in [("index.html", "Home")] + PRODUCTS + [("about.html", "About Us"), ("press.html", "Press")])
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -336,6 +418,7 @@ def footer(scripts=NAV_SCRIPT):
     <a href="mongcore.html">MongCore</a>
     <a href="mongmarket.html">MongMarket</a>
     <a href="about.html">About Us</a>
+    <a href="press.html">Press</a>
   </div>
   <span>&#169; 2026 Mongbotics
     <a class="igLink" href="''' + INSTAGRAM + '''" target="_blank" rel="noopener">''' + IG_ICON + '''Instagram</a>
@@ -437,7 +520,8 @@ pages["index.html"] = (
     <div class="newsHead">
       <p class="sectionTag">News</p>
       <h2>Latest from<br>Mongbotics.</h2>
-    </div>''' + "".join(news_item(n) for n in NEWS) + '''
+    </div>''' + "".join(news_item(n) for n in NEWS[:3]) + '''
+    <a class="newsMore" href="press.html">All press releases</a>
   </section>
 ''' if NEWS else "")
     + '''
@@ -682,6 +766,82 @@ pages["about.html"] = (
 '''
     + page_next("technology.html", "Next", "Technology", "index.html", "Back to", "Home")
     + footer())
+
+# ---------------------------------------------------------------- press ---
+# The press list shows every date as MM.YYYY only, never the day, as on the
+# BOTENS site. The story pages keep the full date.
+
+# Year buttons, built at build time. They only appear once there is more than one year.
+PRESS_SCRIPT = '''<script>
+(function () {
+  var bar = document.querySelector(".pressYears");
+  if (!bar) return;
+  var rows = document.querySelectorAll(".pressRows li");
+  bar.querySelectorAll("button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      bar.querySelectorAll("button").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      rows.forEach(function (r) { r.hidden = b.dataset.year !== "all" && r.dataset.year !== b.dataset.year; });
+    });
+  });
+})();
+</script>
+'''
+
+
+def press_hero(eyebrow, h1, sub="", back=False):
+    back_link = '\n      <a class="pressBack" href="press.html">All press releases</a>' if back else ""
+    sub_line = f'\n      <p class="pressSub">{sub}</p>' if sub else ""
+    return f'''
+  <section class="pressHero{" storyHero" if back else ""}">
+    <div class="pressHeroCopy">{back_link}
+      <p class="eyebrow"><span></span> {eyebrow}</p>
+      <h1>{h1}</h1>{sub_line}
+    </div>
+  </section>
+'''
+
+
+press_years = sorted({news_when(n).year for n in NEWS}, reverse=True)
+year_bar = ("""
+    <div class="pressYears" role="group" aria-label="Filter by year">
+      <button type="button" data-year="all" aria-pressed="true">All</button>""" + "".join(
+    f'\n      <button type="button" data-year="{y}" aria-pressed="false">{y}</button>' for y in press_years)
+    + "\n    </div>") if len(press_years) > 1 else ""
+press_rows = "".join(f'''
+      <li data-year="{news_when(n).year}">
+        <time datetime="{news_when(n):%Y-%m}">{news_when(n):%m.%Y}</time>
+        <h3><a href="{news_page(n)}">{n["title"]}</a></h3>
+      </li>''' for n in NEWS)
+
+pages["press.html"] = (
+    head("Press | Mongbotics",
+         "Announcements and news from Mongbotics.",
+         "press.html")
+    + press_hero("Press", "Press.", "Announcements and news from Mongbotics.")
+    + f'''
+  <section class="pressList">
+    <p class="sectionTag">Press releases</p>{year_bar}
+    <ul class="pressRows">{press_rows}
+    </ul>
+  </section>
+'''
+    + footer(NAV_SCRIPT + PRESS_SCRIPT))
+
+for n in NEWS:
+    link = (f'\n      <a class="igLink" href="{n["link"]}" target="_blank" rel="noopener">'
+            f'{IG_ICON}See the post on Instagram</a>' if n.get("link") else "")
+    pages[news_page(n)] = (
+        head(n["title"] + " | Mongbotics", n["text"], "press.html")
+        + press_hero(f'{n["date"]} &#183; {n["place"]}', n["title"], back=True)
+        + f'''
+  <section class="pressStory{" hasPhoto" if n.get("photos") else ""}">
+    <div class="pressStoryText">
+      <p>{n["text"]}</p>{news_body(n)}{link}
+    </div>{news_gallery(n["photos"], n.get("wide")) if n.get("photos") else ""}
+  </section>
+  <nav class="pressFoot"><a href="press.html">All press releases</a></nav>
+'''
+        + footer(NAV_SCRIPT + GALLERY_SCRIPT))
 
 # ------------------------------------------------------------------------
 os.makedirs(OUT, exist_ok=True)

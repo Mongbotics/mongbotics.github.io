@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Press | Mongbotics</title>
+  <meta name="description" content="Announcements and news from Mongbotics.">
+  <meta property="og:title" content="Press | Mongbotics">
+  <meta property="og:description" content="Announcements and news from Mongbotics.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg?v=98de7afa" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=3945f2e9">
+</head>
+<body>
+<main>
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">M</span>ongbotics</a>
+    <div class="links">
+        <a href="index.html">Home</a>
+        <div class="menu">
+          <button type="button" class="menuBtn" aria-expanded="false" aria-controls="productMenu">
+            Product <span class="caret" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="menuList" id="productMenu">
+            <div class="menuInner">
+          <a href="technology.html">Overview</a>
+          <a href="mongbot.html">MongBot</a>
+          <a href="mongcore.html">MongCore</a>
+          <a href="mongmarket.html">MongMarket</a>
+            </div>
+          </div>
+        </div>
+        <a href="about.html">About Us</a>
+        <a href="press.html" class="active">Press</a>
+    </div>
+    <a class="navCta" href="about.html#contact"><span class="navCtaText">Build with us</span></a>
+    <button type="button" class="navBurger" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+  </nav>
+  <div class="mobileNav" id="mobileNav" hidden>
+    <a href="index.html">Home</a>
+    <a href="technology.html">Overview</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+    <a href="press.html" class="active">Press</a>
+    <a class="mobileCta" href="about.html#contact">Build with us</a>
+  </div>
+
+  <section class="pressHero">
+    <div class="pressHeroCopy">
+      <p class="eyebrow"><span></span> Press</p>
+      <h1>Press.</h1>
+      <p class="pressSub">Announcements and news from Mongbotics.</p>
+    </div>
+  </section>
+
+  <section class="pressList">
+    <p class="sectionTag">Press releases</p>
+    <ul class="pressRows">
+      <li data-year="2026">
+        <time datetime="2026-11">11.2026</time>
+        <h3><a href="press-burapha-university.html">Mongbotics visits Burapha University and EEC Automation Park in Thailand</a></h3>
+      </li>
+      <li data-year="2026">
+        <time datetime="2026-09">09.2026</time>
+        <h3><a href="press-protocol-camp-seoul.html">Representing Mongbotics at the Protocol Camp kick-off in Seoul, South Korea</a></h3>
+      </li>
+    </ul>
+  </section>
+
+</main>
+<footer>
+  <a class="brand" href="index.html"><span class="mark">M</span>ongbotics</a>
+  <p>Robots with identity. Ownership with proof.<br>A network built for everyone.</p>
+  <div>
+    <a href="technology.html">Technology</a>
+    <a href="mongbot.html">MongBot</a>
+    <a href="mongcore.html">MongCore</a>
+    <a href="mongmarket.html">MongMarket</a>
+    <a href="about.html">About Us</a>
+    <a href="press.html">Press</a>
+  </div>
+  <span>&#169; 2026 Mongbotics
+    <a class="igLink" href="https://www.instagram.com/mongbotics/" target="_blank" rel="noopener"><svg class="igIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+  </span>
+</footer>
+<script>
+// The dropdown opens on hover and on keyboard focus through CSS alone. This
+// adds click, which is what a trackpad tap and a touch device actually send,
+// plus Escape and click-outside to close it again.
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  var btn = menu.querySelector(".menuBtn");
+
+  function close() {
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target)) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      close();
+      btn.focus();
+    }
+  });
+})();
+
+// The phone menu. The panel is hidden rather than display:none'd from CSS so
+// that it stays out of the tab order while closed. Escape and a second tap on
+// the burger both close it.
+(function () {
+  var burger = document.querySelector(".navBurger");
+  var panel = document.getElementById("mobileNav");
+  if (!burger || !panel) return;
+
+  function set(open) {
+    panel.hidden = !open;
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.classList.toggle("open", open);
+    document.body.classList.toggle("navOpen", open);
+  }
+
+  burger.addEventListener("click", function () {
+    set(panel.hidden);
+  });
+
+  panel.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") set(false);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !panel.hidden) {
+      set(false);
+      burger.focus();
+    }
+  });
+
+  // Coming back over the breakpoint with the panel open would otherwise leave
+  // the body locked and a stray panel under the desktop nav.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 800 && !panel.hidden) set(false);
+  });
+})();
+</script>
+<script>
+(function () {
+  var bar = document.querySelector(".pressYears");
+  if (!bar) return;
+  var rows = document.querySelectorAll(".pressRows li");
+  bar.querySelectorAll("button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      bar.querySelectorAll("button").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      rows.forEach(function (r) { r.hidden = b.dataset.year !== "all" && r.dataset.year !== b.dataset.year; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
